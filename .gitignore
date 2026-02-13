@@ -1,0 +1,6 @@
+chroma_db/
+upload/
+.env
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
