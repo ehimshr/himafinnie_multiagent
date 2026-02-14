@@ -1,9 +1,17 @@
 import streamlit as st
-from main import financial_planner
-from langchain_core.messages import HumanMessage, AIMessage
 import uuid
 import os
 from dotenv import load_dotenv
+from langchain_core.messages import HumanMessage, AIMessage
+
+import sys
+
+# Add the project root to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
+# Import the financial planner graph
+# Note: we are importing from src.workflow.graph
+from src.workflow.graph import financial_planner
 
 # Load environment variables
 load_dotenv()
