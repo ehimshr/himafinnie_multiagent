@@ -64,14 +64,14 @@ with st.sidebar:
     
     st.divider()
     st.subheader("📁 Upload Documents")
-    uploaded_file = st.file_uploader("Upload tax PDFs or financial docs", type=["pdf"])
+    uploaded_file = st.file_uploader("Upload tax PDFs, CSV/Excel portfolios", type=["pdf", "csv", "xlsx"])
     
     if uploaded_file is not None:
         file_path = os.path.join(UPLOAD_DIR, uploaded_file.name)
         with open(file_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
         st.success(f"Uploaded: {uploaded_file.name}")
-        st.info("The Tax Agent can now analyze this document. Mention 'uploaded file' in your query.")
+        st.info("Files can be analyzed by Tax Agent or Portfolio Agent.")
 
     st.divider()
     if st.button("Clear Conversation"):
@@ -117,8 +117,9 @@ def process_agent_query(user_query):
         return error_msg
 
 # Define Tabs
-tab_chat, tab_markets, tab_tax, tab_goals, tab_news = st.tabs([
+tab_chat, tab_portfolio, tab_markets, tab_tax, tab_goals, tab_news = st.tabs([
     "💬 Financial general query", 
+    "💼 Portfolio Analyzer",
     "📊 Markets", 
     "📑 Tax Hub", 
     "🎯 Goal Planner", 
@@ -129,6 +130,27 @@ tab_chat, tab_markets, tab_tax, tab_goals, tab_news = st.tabs([
 with tab_chat:
     st.subheader("Conversational Advisor")
     render_chat_history()
+
+# TAB 2: PORTFOLIO ANALYZER
+with tab_portfolio:
+    st.subheader("Portfolio Analysis (Buffett/Graham Style)")
+    render_chat_history()
+    
+    st.divider()
+    if os.path.exists(UPLOAD_DIR):
+        files = os.listdir(UPLOAD_DIR)
+        portfolio_files = [f for f in files if f.endswith(('.csv', '.xlsx', '.xls', '.pdf'))]
+        if portfolio_files:
+            st.write("📁 **Files available for analysis:**")
+            st.caption(", ".join(portfolio_files))
+            if st.button("Run Portfolio Analysis", key="paa_btn"):
+                with st.spinner("Analyzing portfolio holdings..."):
+                    process_agent_query("Analyze my uploaded portfolio files using Buffett and Graham principles. Provide Actionable advice on what to buying, selling, or holding.")
+                    st.rerun()
+        else:
+            st.info("No portfolio files uploaded. Upload CSV/Excel via the sidebar.")
+    else:
+         st.info("No documents uploaded.")
 
 # TAB 2: MARKETS
 with tab_markets:

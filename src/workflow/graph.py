@@ -7,6 +7,8 @@ from src.core.llm import llm
 from src.workflow.state import FinancePlannerState
 from src.agents.fqaa_agent import fqaa_agent_node
 from src.agents.maa_agent import maa_agent_node
+from src.agents.paa_agent import paa_agent_node
+from src.agents.maa_agent import maa_agent_node
 from src.agents.nsa_agent import nsa_agent_node
 from src.agents.tea_agent import tea_agent_node
 from src.agents.gpa_agent import gpa_agent_node
@@ -22,7 +24,7 @@ def create_router():
         Analyze the user's query and decide which specialist agent should handle it:
 
         Finance Q&A Agent (FQAA): Handles general financial education queries
-        Portfolio Analysis Agent (PAA): Reviews and analyzes user portfolios
+        Portfolio Analysis Agent (PAA): Reviews and analyzes user portfolios (uploaded CSV/Excel/PDF)
         Market Analysis Agent (MAA): Provides real-time market insights, ticker info.
         Goal Planning Agent (GPA): Assists with financial goal setting and planning
         News Synthesizer Agent (NSA): Summarizes and contextualizes financial news
@@ -33,6 +35,7 @@ def create_router():
         Examples:
         "What is a stock" → FQAA
         "Analyze my portfolio" → PAA
+        "Review my uploaded stock list" → PAA
         "What's the current price of AAPL?" → MAA
         "What are some good retirement planning strategies?" → GPA
         "Summarize today's market news" → NSA
@@ -68,7 +71,7 @@ def create_router():
             # Map to our agent node names
             agent_mapping = {
                 "FQAA": "fqaa_agent",
-                "PAA": "paa_agent", # PAA is not implemented yet in the original code
+                "PAA": "paa_agent", 
                 "MAA": "maa_agent",
                 "GPA": "gpa_agent",
                 "NSA": "nsa_agent",
@@ -133,7 +136,7 @@ workflow = StateGraph(FinancePlannerState)
 # Add all nodes to the graph
 workflow.add_node("router", router_node)
 workflow.add_node("fqaa_agent", fqaa_agent_node)
-# workflow.add_node("paa_agent", paa_agent_node) # Not implemented
+workflow.add_node("paa_agent", paa_agent_node)
 workflow.add_node("maa_agent", maa_agent_node)
 workflow.add_node("nsa_agent", nsa_agent_node)
 workflow.add_node("gpa_agent", gpa_agent_node)
@@ -151,13 +154,14 @@ workflow.add_conditional_edges(
         "nsa_agent": "nsa_agent",
         "gpa_agent": "gpa_agent",
         "tea_agent": "tea_agent",
-        "paa_agent": "fqaa_agent" # Fallback since PAA is not implemented
+        "paa_agent": "paa_agent"
     }
 )
 
 
 # Add edges from each agent back to END
 workflow.add_edge("fqaa_agent", END)
+workflow.add_edge("paa_agent", END)
 workflow.add_edge("maa_agent", END)
 workflow.add_edge("nsa_agent", END)
 workflow.add_edge("gpa_agent", END)

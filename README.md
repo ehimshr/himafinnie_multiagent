@@ -1,12 +1,13 @@
 # 💰 AI Finance Assistant
 
-A modular, Multi-Agent Financial Advisor system powered by LangGraph, OpenAI, and Streamlit. This application leverages a team of specialized AI agents to provide comprehensive financial planning, market analysis, news synthesis, and tax education.
+A modular, Multi-Agent Financial Advisor system powered by LangGraph, OpenAI, and Streamlit. This application leverages a team of specialized AI agents to provide comprehensive financial planning, market analysis, news synthesis, tax education, and portfolio review.
 
 ## 🚀 Features
 
--   **Multi-Agent Architecture**: Routes user queries to the most relevant specialist agent (General Finance, Market Analysis, News, Tax, or Goal Planning).
+-   **Multi-Agent Architecture**: Routes user queries to the most relevant specialist agent (General Finance, Market Analysis, News, Tax, Goal Planning, or Portfolio Analysis).
 -   **RAG (Retrieval-Augmented Generation)**: Uses a vector database (ChromaDB) to ground answers in verified financial knowledge (Zerodha Varsity).
 -   **Real-time Data**: Integrates with `yfinance` for stock market data and `Tavily` for web search.
+-   **Portfolio Analysis**: Analyzes uploaded CSV/Excel/PDF portfolios using Benjamin Graham & Warren Buffett principles.
 -   **Financial Tools**: Includes calculators for SIP, Inflation, and Tax (via Python logic).
 -   **Document Analysis**: Upload PDF documents for the Tax Agent to analyze.
 -   **Interactive UI**: A rich Streamlit interface with dedicated tabs for different financial activities.
@@ -23,6 +24,7 @@ ai_finance_assistant/
 │   ├── agents/          # 🤖 Specialized Agent Modules
 │   │   ├── fqaa_agent.py   # Finance Q&A Agent (General queries & RAG)
 │   │   ├── maa_agent.py    # Market Analysis Agent (Stocks, Technicals)
+│   │   ├── paa_agent.py    # Portfolio Analysis Agent (Holdings Review)
 │   │   ├── nsa_agent.py    # News Synthesizer Agent (News & Sentiment)
 │   │   ├── tea_agent.py    # Tax Education Agent (Tax laws & Calcs)
 │   │   └── gpa_agent.py    # Goal Planning Agent (Financial Planning)
@@ -37,7 +39,7 @@ ai_finance_assistant/
 │   │   └── rag_engine.py   # Vectorstore setup, Embeddings, & Retriever
 │   │
 │   ├── utils/           # 🛠️ Shared Utilities
-│   │   └── tools.py        # Tools: yfinance, Calculators, PDF Reader, Tavily
+│   │   └── tools.py        # Tools: yfinance, Calculators, PDF Reader, CSV Reader, Tavily
 │   │
 │   ├── web_app/         # 💻 User Interface
 │   │   └── app.py          # Main Streamlit Application
@@ -100,60 +102,72 @@ The application will open in your default web browser at `http://localhost:8501`
 
 ---
 
+## � How Each Agent Helps You
+
+This system is built like a **Financial Team**, where each agent has a specific role. Here is how you can use them:
+
+| Agent | Role | Best Feature | How to Use |
+| :--- | :--- | :--- | :--- |
+| **FQAA** (Finance Q&A) | **The Educator** | Explains complex jargon simply. | Ask "What is a mutual fund?", "Explain futures vs options." |
+| **PAA** (Portfolio Analysis) | **The Strategist** | Analyzes your portfolio like Warren Buffett. | **Upload your holdings (CSV/Excel)** and ask "Analyze my portfolio." |
+| **MAA** (Market Analysis) | **The Analyst** | Real-time stock data & technicals. | Ask "Price of HDFC Bank", "Is RELIANCE bullish or bearish?" |
+| **TEA** (Tax Education) | **The CA** | Tax saving & document review. | **Upload a tax notice (PDF)** and ask "Summarize this tax document." |
+| **GPA** (Goal Planning) | **The Planner** | Creates investment roadmaps. | Ask "Plan for ₹5Cr retirement corpus in 20 years." |
+| **NSA** (News Synthesizer) | **The Reporter** | Curates market news. | Ask "Latest news on EV sector", "Sentiment for IT stocks." |
+
+---
+
 ## 🖥️ UI Description & Functionalities
 
-The application is divided into **5 functional tabs**, each serving a specific purpose:
+The application is divided into **6 functional tabs**:
 
 ### 1. 💬 Conversational Advisor (General Query)
 -   **Purpose**: Ask general financial questions.
--   **Powered By**: **FQAA (Finance Q&A Agent)**.
--   **Features**:
-    -   Uses RAG to answer from internal knowledge base.
-    -   Falls back to Web Search for recent info.
-    -   *Example*: "What is a mutual fund?", "Explain different asset classes."
+-   **Powered By**: **FQAA**.
+-   **Features**: Uses RAG to answer from internal knowledge base (Zerodha Varsity).
 
-### 2. 📊 Markets (Real-time Insights)
+### 2. 💼 Portfolio Analyzer (Buffett/Graham Style)
+-   **Purpose**: Review and optimize your investment portfolio.
+-   **Powered By**: **PAA**.
+-   **Features**:
+    -   **File Upload**: Supports **CSV, Excel, and PDF** uploads.
+    -   **Deep Analysis**: Evaluates diversification, sector allocation, and individual stock fundamentals.
+    -   **Actionable Advice**: Gives specific "Buy", "Sell", "Hold" recommendations based on value investing principles.
+    -   *Example*: "Analyze my uploaded CSV", "Is my portfolio well-diversified?"
+
+### 3. 📊 Markets (Real-time Insights)
 -   **Purpose**: Get stock prices, technical analysis, and market trends.
--   **Powered By**: **MAA (Market Analysis Agent)**.
+-   **Powered By**: **MAA**.
 -   **Features**:
     -   **Ticker Input**: Enter symbols like `RELIANCE.NS` or `TSLA`.
-    -   Fetches real-time price, volume, and changes.
-    -   Provides technical (RSI, MA) and fundamental insights.
-    -   *Example*: "Analyze Tata Motors", "Current price of AAPL".
+    -   Fetches real-time price, volume, and changes via `yfinance`.
 
-### 3. 📑 Tax Hub (Education & Docs)
+### 4. 📑 Tax Hub (Education & Docs)
 -   **Purpose**: Understand tax laws and analyze financial documents.
--   **Powered By**: **TEA (Tax Education Agent)**.
+-   **Powered By**: **TEA**.
 -   **Features**:
-    -   **Document Upload**: Upload PDF/Text files (e.g., P&L statements, tax notices) via the Sidebar.
-    -   **Analysis Button**: "Run Comprehensive Tax Analysis" to summarize uploaded docs.
-    -   Explains tax regimes, deductions (80C, 80D), and calculates liabilities.
-    -   *Example*: "How is STCG taxed?", "Analyze my uploaded P&L".
+    -   **Document Upload**: Upload PDF/Text files (e.g., P&L statements, tax notices).
+    -   **Analysis**: Summarizes tax implications and calculates liabilities.
 
-### 4. 🎯 Goal Planner (Financial Planning)
+### 5. 🎯 Goal Planner (Financial Planning)
 -   **Purpose**: Plan for life goals (Retirement, Education, etc.).
--   **Powered By**: **GPA (Goal Planning Agent)**.
+-   **Powered By**: **GPA**.
 -   **Features**:
-    -   **Goal Form**: Input Target Amount, Years, and Expected Return.
-    -   **Generate Roadmap**: Creates a month-by-month investment plan (SIP).
-    -   Calculates inflation-adjusted costs.
-    -   *Example*: "Plan for a ₹1Cr retirement corpus in 20 years."
+    -   **Goal Form**: Input Target Amount, Years, and Return %.
+    -   **Roadmap Generator**: Creates a detailed month-by-month investment plan (SIP).
 
-### 5. 📰 News Terminal
+### 6. 📰 News Terminal
 -   **Purpose**: Catch up on financial news and sentiment.
--   **Powered By**: **NSA (News Synthesizer Agent)**.
+-   **Powered By**: **NSA**.
 -   **Features**:
-    -   **Topic Search**: Enter a company name or keyword.
-    -   Synthesizes news from multiple sources.
-    -   Provides "Impact Analysis" (Short/Mid/Long term) and "Sentiment" (Bullish/Bearish).
-    -   *Example*: "Latest news on RBI policy", "HDFC Bank sentiment".
+    -   **Topic Search**: Synthesizes top news stories for any company or sector.
 
 ---
 
 ## 🤖 Workflow Architecture
 
 1.  **Router**: Analyzes the user's intent from the query.
-2.  **Routing**: directing the query to the specific agent (`FQAA`, `MAA`, `TEA`, `GPA`, `NSA`).
+2.  **Routing**: directing the query to the specific agent (`FQAA`, `PAA`, `MAA`, `TEA`, `GPA`, `NSA`).
 3.  **Agent Execution**: The selected agent executes its logic (RAG, Tools, Web Search).
 4.  **Response**: The agent returns a structured markdown response which is displayed in the UI.
 

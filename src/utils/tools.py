@@ -3,6 +3,7 @@ import os
 import re
 import requests
 import yfinance as yf
+import pandas as pd
 import PyPDF2
 from langchain_core.tools import tool
 from langchain_tavily import TavilySearch
@@ -106,6 +107,37 @@ def pdf_upload_reader_tool(query: str = "") -> str:
             full_text += f"Error reading {pdf_file}: {str(e)}\n"
             
     return full_text if full_text else "No text could be extracted from the PDFs."
+
+@tool
+def csv_excel_reader_tool(query: str = "") -> str:
+    """Reads and extracts data from all CSV and Excel files in the ./upload directory.
+    Returns the data in a structured string format.
+    """
+    upload_dir = "./upload"
+    if not os.path.exists(upload_dir):
+        return "The upload directory does not exist."
+    
+    files = [f for f in os.listdir(upload_dir) if f.lower().endswith(('.csv', '.xlsx', '.xls'))]
+    if not files:
+        return "No CSV or Excel files found in the ./upload directory."
+    
+    full_text = ""
+    for file_name in files:
+        file_path = os.path.join(upload_dir, file_name)
+        try:
+            if file_name.lower().endswith('.csv'):
+                df = pd.read_csv(file_path)
+            else:
+                df = pd.read_excel(file_path)
+            
+            # Convert dataframe to string with some limits to avoid huge prompts
+            text = f"--- Content of {file_name} ---\n"
+            text += df.to_string(index=False, max_rows=50) + "\n"
+            full_text += text + "\n"
+        except Exception as e:
+            full_text += f"Error reading {file_name}: {str(e)}\n"
+            
+    return full_text if full_text else "No data could be extracted from the files."
 
 @tool
 def sip_calculator_tool(monthly_investment: float, expected_return: float, tenure_years: int) -> str:
