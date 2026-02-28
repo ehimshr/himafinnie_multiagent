@@ -2,6 +2,7 @@
 
 A modular, Multi-Agent Financial Advisor system powered by LangGraph, OpenAI, and Streamlit. This application leverages a team of specialized AI agents to provide comprehensive financial planning, market analysis, news synthesis, tax education, and portfolio review.
 
+## 🚀 App Screenshot
 ![Alt text](images/hima_finnie.jpg)
 
 ## 🚀 Features
