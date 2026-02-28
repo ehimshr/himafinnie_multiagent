@@ -7,7 +7,7 @@ A modular, Multi-Agent Financial Advisor system powered by LangGraph, OpenAI, an
 -   **Multi-Agent Architecture**: Routes user queries to the most relevant specialist agent (General Finance, Market Analysis, News, Tax, Goal Planning, or Portfolio Analysis).
 -   **RAG (Retrieval-Augmented Generation)**: Uses a vector database (ChromaDB) to ground answers in verified financial knowledge (Zerodha Varsity).
 -   **Real-time Data**: Integrates with `yfinance` for stock market data and `Tavily` for web search.
--   **Portfolio Analysis**: Analyzes uploaded CSV/Excel/PDF portfolios using Benjamin Graham & Warren Buffett principles.
+-   **Portfolio Analysis**: Analyzes live Zerodha portfolio and uploaded CSV/Excel/PDF portfolios.
 -   **Financial Tools**: Includes calculators for SIP, Inflation, and Tax (via Python logic).
 -   **Document Analysis**: Upload PDF documents for the Tax Agent to analyze.
 -   **Interactive UI**: A rich Streamlit interface with dedicated tabs for different financial activities.
