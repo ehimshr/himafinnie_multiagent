@@ -119,7 +119,7 @@ This system is built like a **Financial Team**, where each agent has a specific 
 
 ## 🖥️ UI Description & Functionalities
 
-The application is divided into **6 functional tabs**:
+The application is divided into **6 functional tabs**, each serving a specific purpose:
 
 ### 1. 💬 Conversational Advisor (General Query)
 -   **Purpose**: Ask general financial questions.
@@ -140,7 +140,9 @@ The application is divided into **6 functional tabs**:
 -   **Powered By**: **MAA**.
 -   **Features**:
     -   **Ticker Input**: Enter symbols like `RELIANCE.NS` or `TSLA`.
-    -   Fetches real-time price, volume, and changes via `yfinance`.
+    -   Fetches real-time price, volume, and changes.
+    -   Provides technical (RSI, MA) and fundamental insights.
+    -   *Example*: "Analyze Tata Motors", "Current price of AAPL".
 
 ### 4. 📑 Tax Hub (Education & Docs)
 -   **Purpose**: Understand tax laws and analyze financial documents.
@@ -160,7 +162,10 @@ The application is divided into **6 functional tabs**:
 -   **Purpose**: Catch up on financial news and sentiment.
 -   **Powered By**: **NSA**.
 -   **Features**:
-    -   **Topic Search**: Synthesizes top news stories for any company or sector.
+    -   **Topic Search**: Enter a company name or keyword.
+    -   Synthesizes news from multiple sources.
+    -   Provides "Impact Analysis" (Short/Mid/Long term) and "Sentiment" (Bullish/Bearish).
+    -   *Example*: "Latest news on RBI policy", "HDFC Bank sentiment".
 
 ---
 
