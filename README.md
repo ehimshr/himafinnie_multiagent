@@ -90,7 +90,17 @@ ai_finance_assistant/
     TAVILY_API_KEY=your_tavily_api_key
     NEWSDATA_API_KEY=your_newsdata_api_key
     ```
-
+4.  **Configure or Set up Environment Variables**:
+    -   Copy `.env.example` to `.env`:
+        ```bash
+        cp .env.example .env
+        ```
+    -   Open `.env` and add your keys:
+        ```
+        OPENAI_API_KEY=your_openai_api_key
+        TAVILY_API_KEY=your_tavily_api_key
+        NEWSDATA_API_KEY=your_newsdata_api_key
+        ```
 ---
 
 ## ▶️ Running the Application
