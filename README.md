@@ -127,22 +127,26 @@ The application is divided into **6 functional tabs**, each serving a specific p
 -   **Features**: Uses RAG to answer from internal knowledge base (Zerodha Varsity).
 
 ### 2. 💼 Portfolio Analyzer (Buffett/Graham Style)
--   **Purpose**: Review and optimize your investment portfolio.
--   **Powered By**: **PAA**.
+-   **Purpose**: Review and optimize your investment portfolio dynamically.
+-   **Powered By**: **PAA** (Portfolio Analysis Agent).
 -   **Features**:
-    -   **File Upload**: Supports **CSV, Excel, and PDF** uploads.
+    -   **Dual Mode Analysis**: Analyze static uploaded files OR connect contextually to live brokerage accounts.
+    -   **Live Brokerage Integration (Zerodha Kite)**: Utilizes the Model Context Protocol (MCP) to securely fetch real-time holdings, positions, and margins directly from your Zerodha Kite account.
+    -   **File Upload**: Supports **CSV, Excel, and PDF** uploads for offline portfolio reviews.
     -   **Deep Analysis**: Evaluates diversification, sector allocation, and individual stock fundamentals.
     -   **Actionable Advice**: Gives specific "Buy", "Sell", "Hold" recommendations based on value investing principles.
-    -   *Example*: "Analyze my uploaded CSV", "Is my portfolio well-diversified?"
+    -   *Validation Examples*:
+        -   *Offline upload*: `"Analyze my uploaded CSV portfolio and tell me if it is well-diversified."`
+        -   *Live MCP connection*: `"Analyze my live Zerodha portfolio."` or `"Connect to my Kite account and review my current holdings."`
 
 ### 3. 📊 Markets (Real-time Insights)
 -   **Purpose**: Get stock prices, technical analysis, and market trends.
--   **Powered By**: **MAA**.
+-   **Powered By**: **MAA** (Market Analysis Agent).
 -   **Features**:
     -   **Ticker Input**: Enter symbols like `RELIANCE.NS` or `TSLA`.
     -   Fetches real-time price, volume, and changes.
     -   Provides technical (RSI, MA) and fundamental insights.
-    -   *Example*: "Analyze Tata Motors", "Current price of AAPL".
+    -   *Validation Examples*: `"Analyze Tata Motors"`, `"Current price of AAPL"`.
 
 ### 4. 📑 Tax Hub (Education & Docs)
 -   **Purpose**: Understand tax laws and analyze financial documents.
