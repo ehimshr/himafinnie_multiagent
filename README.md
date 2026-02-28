@@ -2,6 +2,9 @@
 
 A modular, Multi-Agent Financial Advisor system powered by LangGraph, OpenAI, and Streamlit. This application leverages a team of specialized AI agents to provide comprehensive financial planning, market analysis, news synthesis, tax education, and portfolio review.
 
+## 🚀 App Screenshot
+![Alt text](images/hima_finnie.jpg)
+
 ## 🚀 Features
 
 -   **Multi-Agent Architecture**: Routes user queries to the most relevant specialist agent (General Finance, Market Analysis, News, Tax, Goal Planning, or Portfolio Analysis).
@@ -80,14 +83,17 @@ ai_finance_assistant/
     pip install -r requirements.txt
     ```
 
-4.  **Configure Environment Variables**
-    Create a `.env` file in the root directory:
-    ```env
-    OPENAI_API_KEY=your_openai_api_key
-    TAVILY_API_KEY=your_tavily_api_key
-    NEWSDATA_API_KEY=your_newsdata_api_key
-    ```
-
+4.  **Configure or Set up Environment Variables**:
+    -   Copy `.env.example` to `.env`:
+        ```bash
+        cp .env.example .env
+        ```
+    -   Open `.env` and add your keys:
+        ```
+        OPENAI_API_KEY=your_openai_api_key
+        TAVILY_API_KEY=your_tavily_api_key
+        NEWSDATA_API_KEY=your_newsdata_api_key
+        ```
 ---
 
 ## ▶️ Running the Application
