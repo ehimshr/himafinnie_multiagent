@@ -176,23 +176,23 @@ financial_planner = workflow.compile(checkpointer=checkpointer)
 if __name__ == "__main__":
     print("✅ Financial Planning Graph built successfully!")
     
-    def test_system(query, thread_id="test_thread"):
-        """Test our multi-agent system"""
-        print(f"🧑 User: {query}")
+    # def test_system(query, thread_id="test_thread"):
+    #     """Test our multi-agent system"""
+    #     print(f"🧑 User: {query}")
 
-        # Create initial state
-        initial_state = {
-            "messages": [HumanMessage(content=query)],
-            "next_agent": ""
-        }
+    #     # Create initial state
+    #     initial_state = {
+    #         "messages": [HumanMessage(content=query)],
+    #         "next_agent": ""
+    #     }
 
-        config = {"configurable": {"thread_id": thread_id}}
+    #     config = {"configurable": {"thread_id": thread_id}}
 
-        # Run the system
-        result = financial_planner.invoke(initial_state, config)
+    #     # Run the system
+    #     result = financial_planner.invoke(initial_state, config)
 
-        response = result["messages"][-1] if isinstance(result["messages"][-1], str) else result["messages"][-1].content
-        print(f"🤖 Assistant: {response}")
-        print("-" * 50)
+    #     response = result["messages"][-1] if isinstance(result["messages"][-1], str) else result["messages"][-1].content
+    #     print(f"🤖 Assistant: {response}")
+    #     print("-" * 50)
 
-    test_system("My salary is 1,20,000 monthly and my monthly expenses are 50,000. Plan the best approach for the surplus: how much for cash in hand, mutual funds, equity, term insurance, and health insurance?", thread_id="test_thread_gpa_surplus_01")
+    # test_system("My salary is 1,20,000 monthly and my monthly expenses are 50,000. Plan the best approach for the surplus: how much for cash in hand, mutual funds, equity, term insurance, and health insurance?", thread_id="test_thread_gpa_surplus_01")

@@ -90,6 +90,8 @@ def render_chat_history():
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
+import asyncio
+
 def process_agent_query(user_query):
     """Processes a query and updates the global session state"""
     # Add user message to history
@@ -101,8 +103,8 @@ def process_agent_query(user_query):
         initial_state = {"messages": [HumanMessage(content=user_query)]}
         config = {"configurable": {"thread_id": st.session_state.thread_id}}
         
-        # Invoke the graph
-        result = financial_planner.invoke(initial_state, config)
+        # Invoke the graph asynchronously since paa_agent_node is async
+        result = asyncio.run(financial_planner.ainvoke(initial_state, config))
         
         # Extract the latest response
         agent_response = result["messages"][-1]
